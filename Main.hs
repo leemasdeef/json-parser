@@ -12,6 +12,18 @@ data JsonValue
 -- TO-FIX: add proper error evaluation
 newtype Parser x = Parser {runParser :: String -> Maybe (String, x)}
 
+jsonNull :: Parser JsonValue
+jsonNull = undefined
+
+charP :: Char -> Parser Char
+charP x =
+  Parser
+    ( \input ->
+        case input of
+          y : ys | y == x -> Just (ys, x)
+          _ -> Nothing
+    )
+
 jsonValue :: Parser JsonValue
 jsonValue = undefined
 
